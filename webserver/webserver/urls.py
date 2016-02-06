@@ -19,5 +19,6 @@ from webserver.view import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^first/',hello)
+    url(r'^first/',login),
+    url(r'^second/',getmenu)	
 ]
