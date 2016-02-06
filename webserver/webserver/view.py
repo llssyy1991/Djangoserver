@@ -26,6 +26,4 @@ def getmenu(request):
 	email=request.POST['email']
 	user_sign={'password':password,'email':email}
 	db.user.insert_one(user_sign)
-	result=db.user.find({"_id":ObjectId("56b544ff7217ac2182e0e3ad")})
-	print result[0]
 	return HttpResponse(str(user_sign))	
