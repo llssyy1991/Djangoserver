@@ -20,7 +20,7 @@ def get_order(request):
 	order=request.body
 	order_in=ast.literal_eval(order)
 	email=order_in['email']
-	date_time=datetime(int(order['year']),int(order['month']),int(order['day']),23,59,59)
+	date_time=datetime(int(order_in['year']),int(order_in['month']),int(order_in['day']),23,59,59)
 	ordering=db.order_number.find_one()
 	order_num=ordering["ord_n"]
 	order_in['order']['ord_n']=order_num
