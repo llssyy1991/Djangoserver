@@ -25,8 +25,24 @@ def get_order(request):
 	order_num=ordering["ord_n"]
 	order_in['order']['ord_n']=order_num
 	order_in['order']['date']=date_time
+	plan=db.order_plan.find_one()
+	BSKY=0
+	PJNW=0
+	ZTG=0
+	if 'BSKY' in order_in:
+		if plan['BSKY']==plan['BSKY_sold']:
+			return HttpResponse('{"errorcode":"1"}')
+		BSKY=1
+	if 'PJNW' in order_in:
+		if plan['PJNW'] == plan['PJNW_sold']:
+			return HttpResponse('{"errorcode":"2"}')
+		PJNW=1
+	if 'ZTG' in order_in:
+		if plan['ZTG'] == plan['ZTG_sold']:
+			return HttpResponse('{"errorcode":"3"}')
+		ZTG=1
 	db.user.update({'email':email},{"$addToSet":{'order':order_in['order']}})	
-	 
+	db.order_plan.update({},{"$inc":{"BSKY":BSKY,"PJNW":PJNW,"ZTG":ZTG}})
 	db.order_number.update({},{"$inc":{'ord_n':1}})
 	
 	return HttpResponse('{"errorcode":"0","order_num":'+str(order_num)+'}')
