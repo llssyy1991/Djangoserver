@@ -42,7 +42,7 @@ def get_order(request):
 			return HttpResponse('{"errorcode":"3"}')
 		ZTG=1
 	db.user.update({'email':email},{"$addToSet":{'order':order_in['order']}})	
-	db.order_plan.update({},{"$inc":{"BSKY":BSKY,"PJNW":PJNW,"ZTG":ZTG}})
+	db.order_plan.update({},{"$inc":{"BSKY_sold":BSKY,"PJNW_sold":PJNW,"ZTG_sold":ZTG}})
 	db.order_number.update({},{"$inc":{'ord_n':1}})
 	
 	return HttpResponse('{"errorcode":"0","order_num":'+str(order_num)+'}')
