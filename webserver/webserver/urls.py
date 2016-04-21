@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^first/',login),
     url(r'^second/',getmenu),
-    url(r'^third/',get_order)		
+    url(r'^third/',get_order),
+    url(r'^set_plan/',setplan),
+    url(r'^show_plan/',show_menu)		
 ]
