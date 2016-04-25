@@ -130,6 +130,14 @@ def show_user_order(request):
 	req = request.body
 	email=ast.literal_eval(req)
 	user=db.user.find_one({"email":email["email"]})
-	result=json.dumps(user["order"])
-	return HttpResponse('{"result":'+result+'}')
+	result=[]
+	for order in user["order"]:
+		if "date" in order:
+			order["year"]=order["date"].year
+			order["month"]=order["date"].month
+			order["day"]=order["date"].day
+			del order["date"]
+		result.append(order)
+	results=json.dumps(result)
+	return HttpResponse('{"result":'+results+'}')
 	
