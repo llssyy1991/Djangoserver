@@ -51,9 +51,9 @@ def get_order(request):
 @csrf_exempt
 def login(request):
 	user=request.body
-		user_in=ast.literal_eval(user)
-		password=user_in['password']
-		email=user_in['email']
+	user_in=ast.literal_eval(user)
+	password=user_in['password']
+	email=user_in['email']
 	if db.user.find_one({"email":email}) is not  None:	
 		return HttpResponse('{"errorcode":"1"}')
 
