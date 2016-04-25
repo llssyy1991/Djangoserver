@@ -119,7 +119,7 @@ def show_all_order_unfinished(request):
 		del order["order"][0]["date"]
 		result.append(order)
 	if not result:
-		return HttpResponse('{"result":"No order sold}')
+		return HttpResponse('{"result":"No order sold"}')
 	results=json.dumps(result)
 	return HttpResponse('{"result":'+results+'}')
 
