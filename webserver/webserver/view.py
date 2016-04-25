@@ -118,7 +118,7 @@ def show_all_order_unfinished(request):
 	result=[]
 	for order in order_results:
 		del order["_id"]
-		del order["order"]["date"]
+		del order["order"][0]["date"]
 		result.append(order)
 	results=json.dumps(result)
 	return HttpResponse('{"result":'+results+'}')
