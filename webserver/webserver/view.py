@@ -117,12 +117,17 @@ def show_all_order_unfinished(request):
 	for orders in order_results:
 		for order in orders["order"]:
 			if order["date"]==plan["date_time"]:
-			    del order["date"]
-			    result.append(order)
+				del order["date"]
+				result.append(order)
 	if not result:
 		return HttpResponse('{"result":"No order sold"}')
 	results=json.dumps(result)
 	return HttpResponse('{"result":'+results+'}')
 
-
+@csrf_exempt
+def show_user_order(request):
+	req = request.body
+	email=ast.literal_eval(req)
+	user=db.user.find_one({"email":email})
+	return HttpResponse('{"result":'+user["order"]+'}')
 	
