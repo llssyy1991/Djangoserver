@@ -112,7 +112,7 @@ def show_all_order_unfinished(request):
 	start=datetime.now()
 	if start>plan["date_time"]:
 		return HttpResponse('{"result":"no plan setted"}')
-	order_results=db.user.find({"order.date":plan["date_time"]},{"order.$":1})
+	order_results=db.user.find({"order.date":plan["date_time"]},{"order.$":50})
 	result=[]
 	for order in order_results:
 		del order["_id"]
@@ -122,5 +122,8 @@ def show_all_order_unfinished(request):
 		return HttpResponse('{"result":"No order sold"}')
 	results=json.dumps(result)
 	return HttpResponse('{"result":'+results+'}')
+
+
+@csrf_exempt
 
 	
