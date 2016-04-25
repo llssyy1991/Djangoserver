@@ -113,7 +113,7 @@ def show_all_order_unfinished(request):
 	if start>plan["date_time"]:
 		return HttpResponse('{"result":"no plan setted"}')
 	order_results=db.user.find({"order.date":plan["date_time"]},{"order.$":1})
-	if order_results is None:
+	if not order_results:
 		return HttpResponse('{"result":"no order sold"}')
 	result=[]
 	for order in order_results:
