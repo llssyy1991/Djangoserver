@@ -126,9 +126,10 @@ def show_all_order_unfinished(request):
 
 @csrf_exempt
 def show_user_order(request):
+
 	req = request.body
 	email=ast.literal_eval(req)
-	user=db.user.find_one({"email":email})
+	user=db.user.find_one({"email":email["email"]})
 	result=json.dumps(user["order"])
 	return HttpResponse('{"result":'+result+'}')
 	
