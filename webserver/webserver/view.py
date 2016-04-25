@@ -30,15 +30,15 @@ def get_order(request):
 	BSKY=0
 	PJNW=0
 	ZTG=0
-	if 'BSKY' in order_in:
+	if 'BSKY' in order_in['order']:
 		if plan['BSKY']==plan['BSKY_sold']:
 			return HttpResponse('{"errorcode":"1"}')
 		BSKY=1
-	if 'PJNW' in order_in:
+	if 'PJNW' in order_in['order']:
 		if plan['PJNW'] == plan['PJNW_sold']:
 			return HttpResponse('{"errorcode":"2"}')
 		PJNW=1
-	if 'ZTG' in order_in:
+	if 'ZTG' in order_in['order']:
 		if plan['ZTG'] == plan['ZTG_sold']:
 			return HttpResponse('{"errorcode":"3"}')
 		ZTG=1
