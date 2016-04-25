@@ -124,6 +124,4 @@ def show_all_order_unfinished(request):
 	return HttpResponse('{"result":'+results+'}')
 
 
-@csrf_exempt
-
 	
