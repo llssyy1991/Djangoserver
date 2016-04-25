@@ -31,15 +31,15 @@ def get_order(request):
 	PJNW=0
 	ZTG=0
 	if 'BSKY' in order_in['order']:
-		if int(plan['BSKY'])==plan['BSKY_sold']:
+		if int(plan['plan']['BSKY'])==plan['plan']['BSKY_sold']:
 			return HttpResponse('{"errorcode":"1"}')
 		BSKY=1
 	if 'PJNW' in order_in['order']:
-		if int(plan['PJNW']) == plan['PJNW_sold']:
+		if int(plan['plan']['PJNW']) == plan['plan']['PJNW_sold']:
 			return HttpResponse('{"errorcode":"2"}')
 		PJNW=1
 	if 'ZTG' in order_in['order']:
-		if int(plan['ZTG']) == plan['ZTG_sold']:
+		if int(plan['plan']['ZTG']) == plan['plan']['ZTG_sold']:
 			return HttpResponse('{"errorcode":"3"}')
 		ZTG=1
 	db.user.update({'email':email},{"$addToSet":{'order':order_in['order']}})	
