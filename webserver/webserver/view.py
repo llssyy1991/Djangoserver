@@ -25,6 +25,7 @@ def get_order(request):
 	order_num=ordering["ord_n"]
 	order_in['order']['ord_n']=order_num
 	order_in['order']['date']=date_time
+	order_in['order']['statue']="INITIAL"
 	plan=db.order_plan.find_one()
 	BSKY=0
 	PJNW=0
@@ -50,9 +51,9 @@ def get_order(request):
 @csrf_exempt
 def login(request):
 	user=request.body
-        user_in=ast.literal_eval(user)
-        password=user_in['password']
-        email=user_in['email']
+		user_in=ast.literal_eval(user)
+		password=user_in['password']
+		email=user_in['email']
 	if db.user.find_one({"email":email}) is not  None:	
 		return HttpResponse('{"errorcode":"1"}')
 
@@ -91,6 +92,8 @@ def setplan(request):
 	db.order_plan.update({},{"$set":{"date_time":date_time,"plan":plan}})
 
 	return HttpResponse(plan2)
+
+
 @csrf_exempt
 def show_menu(request):
 
@@ -102,4 +105,18 @@ def show_menu(request):
 		
 	plan_return=json.dumps(plan["plan"])
 	return HttpResponse(plan_return)
+
+@csrf_exempt
+def show_all_order_unfinished(request):
+	plan=db.order_plan.find_one()
+	start=datetime.now()
+	if start>plan["date_time"]:
+		return HttpResponse('{"result":"no plan setted"}')
+	order_results=db.user.find({"order.date":plan["date_time"]},{"order.$":1})
+
+	if order_results is None:
+		return HttpResponse('{"result":"no order sold"}')
+	results=json.dumps(order_results)
+	return HttpResponse('{"result":'+results+'}')
+
 	

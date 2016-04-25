@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^second/',getmenu),
     url(r'^third/',get_order),
     url(r'^set_plan/',setplan),
-    url(r'^show_plan/',show_menu)		
+    url(r'^show_plan/',show_menu),
+    url(r'^show_order_sold',show_all_order_unfinished)
 ]
