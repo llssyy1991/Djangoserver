@@ -129,5 +129,6 @@ def show_user_order(request):
 	req = request.body
 	email=ast.literal_eval(req)
 	user=db.user.find_one({"email":email})
-	return HttpResponse('{"result":'+user["order"]+'}')
+	result=json.dumps(user["order"])
+	return HttpResponse('{"result":'+result+'}')
 	
