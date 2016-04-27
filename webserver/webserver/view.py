@@ -152,11 +152,11 @@ def change_order_status(request):
 		BSKY=0
 		PJNW=0
 		ZTG=0
-		if 'BSKY' in order_delete["order"]:
+		if 'BSKY' in order_delete["order"][0]:
 			BSKY = -1
-		if 'PJNW' in order_delete["order"]:
+		if 'PJNW' in order_delete["order"][0]:
 			PJNW = -1
-		if 'ZTG' in order_delete["order"]:
+		if 'ZTG' in order_delete["order"][0]:
 			ZTG = -1
 		db.order_plan.update({}, {"$inc": {"plan.BSKY_sold": BSKY, "plan.PJNW_sold": PJNW, "plan.ZTG_sold": ZTG}})
 	db.user.update({'order.ord_n':int(order_num) }, {"$set": {'order.$.status': status["status"]}})
