@@ -147,16 +147,16 @@ def change_order_status(request):
 	status = ast.literal_eval(req)
 	order_num=status["order_num"]
 	if status["status"] == "reject":
-		order_delete=db.user.find({"order.ord_n":int(order_num)},{"order.$":1})
+		order_delete=db.user.find_one({"order.ord_n":int(order_num)},{"order.$":1})
 		print order_delete
 		BSKY=0
 		PJNW=0
 		ZTG=0
-		if 'BSKY' in order_delete[0]:
+		if 'BSKY' in order_delete:
 			BSKY = -1
-		if 'PJNW' in order_delete[0]:
+		if 'PJNW' in order_delete:
 			PJNW = -1
-		if 'ZTG' in order_delete[0]:
+		if 'ZTG' in order_delete:
 			ZTG = -1
 		db.order_plan.update({}, {"$inc": {"plan.BSKY_sold": BSKY, "plan.PJNW_sold": PJNW, "plan.ZTG_sold": ZTG}})
 	db.user.update({'order.ord_n':int(order_num) }, {"$set": {'order.$.status': status["status"]}})
