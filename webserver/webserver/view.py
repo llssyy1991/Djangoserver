@@ -146,5 +146,5 @@ def change_order_status(request):
 	req = request.body
 	status = ast.literal_eval(req)
 	order_num=status["order_num"]
-	db.user.update({'order.order_n':int(order_num) }, {"$set": {'order.0.status': status["status"]}})
+	db.user.update({'order.ord_n':int(order_num) }, {"$set": {'order.$.status': status["status"]}})
 	return HttpResponse('{"result":"success"}')
