@@ -146,7 +146,7 @@ def change_order_status(request):
 	req = request.body
 	status = ast.literal_eval(req)
 	order_num=status["order_num"]
-	if status["status"] is "reject":
+	if status["status"] == "reject":
 		order_delete=db.user.update({"order.ord_n":int(order_num)},{"order.$":1})
 		print order_delete
 		BSKY=0
