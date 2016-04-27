@@ -25,7 +25,7 @@ def get_order(request):
 	order_num=ordering["ord_n"]
 	order_in['order']['ord_n']=order_num
 	order_in['order']['date']=date_time
-	order_in['order']['statue']="INITIAL"
+	order_in['order']['status']="INITIAL"
 	plan=db.order_plan.find_one()
 	BSKY=0
 	PJNW=0
@@ -140,4 +140,11 @@ def show_user_order(request):
 		result.append(order)
 	results=json.dumps(result)
 	return HttpResponse('{"result":'+results+'}')
-	
+
+@csrf_exempt
+def change_order_status(request):
+	req = request.body
+	status = ast.literal_eval(req)
+	order_num=status["order_num"]
+	db.user.update({'order.order_n':order_num }, {"$set": {'order.status': status["status"]}})
+	return HttpResponse('{"result":"success"}')
